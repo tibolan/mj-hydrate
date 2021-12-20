@@ -1,4 +1,4 @@
-# <mj-hydrate>
+# &lt;mj-hydrate&gt;
 A powerful mjml component that embed the 
 ``{{ mustache }}``
 syntax in your mjml files.
