@@ -3,3 +3,4 @@
 lib/**/*.js
 index.html
 node_modules
+.idea

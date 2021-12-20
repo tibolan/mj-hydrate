@@ -59,7 +59,11 @@ export default class MjHydrate extends BodyComponent {
             }
             file = Mustache.render(file, data)
         } else if (source) {
-            data = Object.assign({}, data, MjHydrate.prototype.externalData[source] || {})
+            try {
+                data = Object.assign({}, data, JSON.parse(source))
+            } catch(e) {
+                data = Object.assign({}, data, MjHydrate.prototype.externalData[source] || {})
+            }
             file = Mustache.render(file, data)
         } else {
             file = Mustache.render(file, data)
@@ -72,11 +76,9 @@ export default class MjHydrate extends BodyComponent {
             const data = Object.assign({}, MjHydrate.prototype.externalData || {}, this.attributes)
             let file = fs.readFileSync(this.getAttribute('path'), {encoding: 'utf8', flag: 'r'});
             file = this.parseMapping(file)
-
             data.mjHydrateContent = this.getContent() || this.getAttribute('content')
 
             file = Mustache.render(file, data);
-            // return file
             return this.renderMJML(`${file}`)
         } catch (e) {
             return `<!-- ${e.message} -->`
