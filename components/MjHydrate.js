@@ -66,12 +66,10 @@ export default class MjHydrate extends BodyComponent {
             const data = Object.assign({}, MjHydrate.prototype.externalData || {}, this.attributes)
             let file = fs.readFileSync(this.getAttribute('path'), {encoding: 'utf8', flag: 'r'});
             file = this.parseMapping(file)
-
             let ctn = this.getContent()
             if (ctn) {
                 data.mjHydrateContent = ctn
             }
-
             file = Mustache.render(file, data);
             return this.renderMJML(`${file}`)
         } catch (e) {
