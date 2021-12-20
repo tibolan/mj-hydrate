@@ -1,5 +1,8 @@
-<mj-column width="100%">
-    <mj-text font-size="24px">Exemple de mapping</mj-text>
-    <mj-text>key: {{key}}</mj-text>
-    <mj-text>foo: {{foo}}</mj-text>
-</mj-column>
+<mj-section full-width="full-width">
+    <mj-column width="100%">
+        <mj-text font-size="24px">Exemple de mapping</mj-text>
+        <mj-text>key: {{key}}</mj-text>
+        <mj-text>foo: {{foo}}</mj-text>
+    </mj-column>
+</mj-section>
+

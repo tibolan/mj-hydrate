@@ -1,1 +1,3 @@
-<mj-text font-weight="bold">{{mjHydrateContent}}</mj-text>
+<mj-column width="100%">
+    <mj-text font-weight="bold">{{mjHydrateContent}}</mj-text>
+</mj-column>

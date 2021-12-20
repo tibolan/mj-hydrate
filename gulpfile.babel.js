@@ -6,7 +6,6 @@ import fs from 'fs'
 import path from 'path'
 import mjml2html from 'mjml'
 import { registerComponent } from 'mjml-core'
-import MjHydrate from "./components/MjHydrate";
 
 const walkSync = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
@@ -34,23 +33,34 @@ const compile = () => {
       watchedComponents.forEach(compPath => {
         const fullPath = path.join(process.cwd(), compPath)
         delete require.cache[fullPath]
-        registerComponent(require(fullPath).default)
-      })
-      MjHydrate.setData({
-        user: {
-          firstname: "John",
-          lastname: "Doe",
-          email: "john_doz@yopmail.com"
-        },
-        template: {
-          level1: "level2",
-          level2: "level3",
-          level3: "level4",
+
+        if (/MjHydrate.js$/.test(compPath)) {
+          let mjHydrate = require(fullPath).default
+          registerComponent(mjHydrate)
+          mjHydrate.setData({
+            user: {
+              firstname: "John",
+              lastname: "Doe",
+              email: "john_doz@yopmail.com"
+            },
+            address: {
+              street_info: "42 avenue des Champs Elysées",
+              zip_code: "75008",
+              city: "Paris",
+            },
+            layout: {
+              header: 'header',
+              footer: 'footer',
+              embed_dynamic: 'embed2.mjml'
+            }
+          })
+        } else {
+          registerComponent(require(fullPath).default)
         }
       })
       fs.readFile(path.normalize('./index.mjml'), 'utf8', (err, data) => {
         if (err) throw err
-        const result = mjml2html(data, {beautify: true, data: {text: 'toto'}})
+        const result = mjml2html(data, {data: {text: 'toto'}})
         fs.writeFileSync(path.normalize('./index.html'), result.html)
       })
     })

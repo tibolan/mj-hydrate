@@ -11,14 +11,6 @@ export default class MjHydrate extends BodyComponent {
         super(initialDatas)
     }
 
-    /*
-      Tell the parser that our component won't contain other mjml tags.
-      This means any html tag inside its content will be left as it is.
-      Without this, it would be parsed as mjml content.
-      Examples of endingTags are mj-text, mj-button, mj-raw, etc.
-    */
-    static endingTag = true
-
     static dependencies = {
         // Tell the validator which tags are allowed as our component's parent
         'mj-body': ['mj-hydrate'],
@@ -36,9 +28,7 @@ export default class MjHydrate extends BodyComponent {
         'source': 'string'
     }
 
-    static defaultAttributes = {
-
-    }
+    static defaultAttributes = {}
 
     /*
       Render is the only required function in a component.
@@ -61,7 +51,7 @@ export default class MjHydrate extends BodyComponent {
         } else if (source) {
             try {
                 data = Object.assign({}, data, JSON.parse(source))
-            } catch(e) {
+            } catch (e) {
                 data = Object.assign({}, data, MjHydrate.prototype.externalData[source] || {})
             }
             file = Mustache.render(file, data)
@@ -76,7 +66,11 @@ export default class MjHydrate extends BodyComponent {
             const data = Object.assign({}, MjHydrate.prototype.externalData || {}, this.attributes)
             let file = fs.readFileSync(this.getAttribute('path'), {encoding: 'utf8', flag: 'r'});
             file = this.parseMapping(file)
-            data.mjHydrateContent = this.getContent() || this.getAttribute('content')
+
+            let ctn = this.getContent()
+            if (ctn) {
+                data.mjHydrateContent = ctn
+            }
 
             file = Mustache.render(file, data);
             return this.renderMJML(`${file}`)
@@ -87,23 +81,7 @@ export default class MjHydrate extends BodyComponent {
     }
 }
 
-MjHydrate.prototype.externalData = Object.assign({}, {
-    user: {
-        firstname: "John",
-        lastname: "Doe",
-        email: "john_doz@yopmail.com"
-    },
-    address: {
-        street_info: "42 avenue des Champs Elysées",
-        zip_code: "75008",
-        city: "Paris",
-    },
-    layout: {
-        header: 'header',
-        footer: 'footer',
-        embed_dynamic: 'embed2.mjml'
-    }
-})
+MjHydrate.prototype.externalData = {}
 MjHydrate.setData = function (data) {
     MjHydrate.prototype.externalData = data
 }

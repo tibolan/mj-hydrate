@@ -1,6 +1,8 @@
+<mj-section full-width="full-width">
 <mj-column width="100%">
     <mj-text font-size="24px">Exemple de source</mj-text>
     <mj-text>{{firstname}}</mj-text>
     <mj-text>{{lastname}}</mj-text>
     <mj-text>{{email}}</mj-text>
 </mj-column>
+</mj-section>
