@@ -5,7 +5,7 @@
     <mj-hydrate path="inc/global.mjml"></mj-hydrate>
     <mj-section full-width="full-width">
         <mj-hydrate path="inc/bold-text.mjml">This is a bold text</mj-hydrate>
-        <mj-hydrate path="inc/red-text.mjml">This is a red text</mj-hydrate>
+        <mj-hydrate path="inc/red-text.mjml">This <b>is a red</b> text</mj-hydrate>
     </mj-section>
     <mj-hydrate path="inc/embed1.mjml"></mj-hydrate>
     <mj-section full-width="full-width">

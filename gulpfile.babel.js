@@ -60,7 +60,7 @@ const compile = () => {
       })
       fs.readFile(path.normalize('./index.mjml'), 'utf8', (err, data) => {
         if (err) throw err
-        const result = mjml2html(data, {data: {text: 'toto'}})
+        const result = mjml2html(data)
         fs.writeFileSync(path.normalize('./index.html'), result.html)
       })
     })
