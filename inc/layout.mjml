@@ -1,0 +1,106 @@
+<mj-hydrate path="inc/{{layout.header}}.mjml"></mj-hydrate>
+<mj-wrapper padding="20px" border="1px solid #D0D6DE">
+    <mj-section full-width="full-width">
+        <mj-column width="100%">
+            <mj-text>Use {{=<% %>=}}{{mustache}}<%={{ }}=%> syntax, in your .mjml files.</mj-text>
+            <mj-text>{{=<% %>=}}{{mustache}}<%={{ }}=%> needs data to process the template. You have 3 ways to use
+                data.
+            </mj-text>
+        </mj-column>
+        <mj-column width="100%">
+            <mj-text font-size="16px" font-weight="bold">1: by using the "mapping" attribute</mj-text>
+            <mj-text font-family="monospace">
+                <mj-raw><pre>&lt;mj-hydrate path="my-file.mjml" mapping="key:value;foo:baz"&gt;&lt;/mj-hydrate&gt;</pre></mj-raw>
+            </mj-text>
+            <mj-text>
+                my-file.mjml
+                <mj-raw>
+                    <pre>&lt;mj-text&gt;{{=<% %>=}}{{foo}}<%={{ }}=%>&lt;/mj-text&gt;</pre>
+                </mj-raw>
+            </mj-text>
+            <mj-text>will become</mj-text>
+            <mj-text>
+                <mj-raw>
+                    <pre>&lt;mj-text&gt;baz&lt;/mj-text&gt;</pre>
+                </mj-raw>
+            </mj-text>
+        </mj-column>
+        <mj-column width="100%">
+            <mj-text font-size="16px" font-weight="bold">2: by refering a global object</mj-text>
+            <mj-text font-family="monospace">
+                <mj-raw>&lt;mj-hydrate path="my-file.mjml"&gt;&lt;/mj-hydrate&gt;</mj-raw>
+            </mj-text>
+            <mj-text>
+                <mj-raw>
+                    <pre>MjHydrate.setData({
+    user: {
+        firstname: "John",
+        lastname: "Doe",
+        email: "john_doz@yopmail.com"
+    },
+    address: {
+        street_info: "42 avenue des Champs Elysées",
+        zip_code: "75008",
+        city: "Paris",
+    },
+    layout: {
+        header: 'header',
+        footer: 'footer',
+        embed_dynamic: 'embed2.mjml'
+    }
+})</pre></mj-raw>
+            </mj-text>
+            <mj-text>
+                <mj-raw>
+                    <pre>&lt;mj-text&gt;{{=<% %>=}}{{user.firstname}}<%={{ }}=%>&lt;/mj-text&gt;</pre>
+                </mj-raw>
+            </mj-text>
+            <mj-text>will become</mj-text>
+            <mj-text>
+                <mj-raw>
+                    <pre>&lt;mj-text&gt;John&lt;/mj-text&gt;</pre>
+                </mj-raw>
+            </mj-text>
+        </mj-column>
+        <mj-column width="100%">
+            <mj-text font-size="16px" font-weight="bold">3: by using the "source" attribute</mj-text>
+            <mj-text font-family="monospace">
+                <mj-raw>&lt;mj-hydrate path="my-file.mjml" source="address"&gt;&lt;/mj-hydrate&gt;</mj-raw>
+                <mj-text>
+                    <mj-raw>
+                        <pre>&lt;mj-text&gt;{{=<% %>=}}{{city}}<%={{ }}=%>&lt;/mj-text&gt;</pre>
+                    </mj-raw>
+                </mj-text>
+                <mj-text>will become</mj-text>
+                <mj-text>
+                    <mj-raw>
+                        <pre>&lt;mj-text&gt;Paris&lt;/mj-text&gt;</pre>
+                    </mj-raw>
+                </mj-text>
+            </mj-text>
+        </mj-column>
+        <mj-column width="100%">
+            <mj-text font-size="16px" font-weight="bold">4: by using your own attributes</mj-text>
+            <mj-text font-family="monospace">
+                <mj-raw>&lt;mj-hydrate path="text-bold.mjml" content="My bold text"&gt;&lt;/mj-hydrate&gt;</mj-raw>
+                <mj-text>
+                    <mj-raw>
+                        <pre>&lt;mj-text font-weight="bold"&gt;{{=<% %>=}}{{content}}<%={{ }}=%>&lt;/mj-text&gt;</pre>
+                    </mj-raw>
+                </mj-text>
+                <mj-text>will become</mj-text>
+                <mj-text>
+                    <mj-raw>
+                        <pre>&lt;mj-text font-weight="bold"&gt;My bold text&lt;/mj-text&gt;</pre>
+                    </mj-raw>
+                </mj-text>
+                <mj-text>Very usefull to create your UI templates !</mj-text>
+            </mj-text>
+        </mj-column>
+    </mj-section>
+    <mj-hydrate path="inc/bold-text.mjml" content="This is a bold text"></mj-hydrate>
+    <mj-hydrate path="inc/mapping.mjml" mapping="key:value;foo:baz"></mj-hydrate>
+    <mj-hydrate path="inc/source.mjml" source="user"></mj-hydrate>
+    <mj-hydrate path="inc/global.mjml"></mj-hydrate>
+</mj-wrapper>
+<mj-hydrate path="inc/{{layout.footer}}.mjml"></mj-hydrate>

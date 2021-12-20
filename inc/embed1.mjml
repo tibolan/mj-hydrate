@@ -1,0 +1,6 @@
+<mj-section>
+    <mj-column>
+        <mj-text>Embed 1</mj-text>
+    </mj-column>
+</mj-section>
+<mj-hydrate path="inc/{{layout.embed_dynamic}}"></mj-hydrate>

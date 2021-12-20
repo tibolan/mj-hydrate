@@ -1,0 +1,5 @@
+<mj-column>
+    <mj-text font-size="24px">Exemple de mapping</mj-text>
+    <mj-text>key: {{key}}</mj-text>
+    <mj-text>foo: {{foo}}</mj-text>
+</mj-column>

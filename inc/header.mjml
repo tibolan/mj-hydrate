@@ -1,0 +1,5 @@
+<mj-section full-width="full-width">
+    <mj-column>
+        <mj-text font-size="20px" align="center" font-family="monospace">&lt;mj-include&gt; + mustache.js = <b>&lt;mj-hydrate&gt;</b></mj-text>
+    </mj-column>
+</mj-section>
