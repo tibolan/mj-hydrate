@@ -1,29 +1,83 @@
 # <mj-hydrate>
-A powerful mjml component that embed the {{ mustache }} syntax in your mjml files.
-Allow you to create UI components, easily reusable for emails on steroids.
+A powerful mjml component that embed the 
+``{{ mustache }}``
+syntax in your mjml files.
 
-# Usage
+- Create UI components for emailing
+- Create advanced layout logic
+- Easily reusable for emails on steroids.
 
+
+## Usage
+
+### Inject innerHTML in .mjml file
 ```html
-<!-- inject content in template -->
 <mj-hydrate path="path/to/mjml.mjml">Lorem ipsum...</mj-hydrate>
-
-<!-- use global data object (see "Define data" section) -->
-<mj-hydrate path="path/to/mjml.mjml"></mj-hydrate>
-
-<!-- use 1 specific key of the global data object -->
-<mj-hydrate path="path/to/mjml.mjml" source="user"></mj-hydrate>
-
-<!-- use your own key/value by passing attributes -->
-<mj-hydrate path="path/to/mjml.mjml" firstname="John" lastname="Doe"></mj-hydrate>
-
-<!-- use mapping attributes to pass an object -->
-<mj-hydrate path="path/to/mjml.mjml" mapping="key:value;foo:baz;"></mj-hydrate>
+```
+and use in `path/to/mjml.mjm`
+```html
+<mj-text>{{mjHydrateContent}}</mj-text> 
+==> <mj-text>Lorem ipsum...</mj-text>
 ```
 
-See index.mjml for example
-# Define data
+### use global data object <small>(only in nodejs)</small>
+see [Define data](#data) section
+```html
+<mj-hydrate path="path/to/mjml.mjml"></mj-hydrate>
+```
+and use in `path/to/mjml.mjm`
+```html
+<mj-text>Hello {{user.firstname}} {{user.lastname}}</mj-text> 
+==> <mj-text>Hello John Doe</mj-text>
+```
+
+### use a specific key of the global data object <small>(only in nodejs)</small>
+```html
+<mj-hydrate path="path/to/mjml.mjml" source="user"></mj-hydrate>
+```
+and use in `path/to/mjml.mjm`
+```html
+<mj-text>Hello {{firstname}} {{lastname}}</mj-text> 
+==> <mj-text>Hello John Doe</mj-text>
+```
+
+### use your own key/value by passing attributes
+```html
+<mj-hydrate path="path/to/mjml.mjml" firstname="Jane" lastname="Doh"></mj-hydrate>
+```
+and use in `path/to/mjml.mjm`
+```html
+<mj-text>Hello {{firstname}} {{lastname}}</mj-text> 
+==> <mj-text>Hello Jane Doh</mj-text>
+```
+
+### use "mapping" attributes to pass a key/value list
+```html
+<mj-hydrate path="path/to/mjml.mjml" mapping="key:value;foo:baz;"></mj-hydrate>
+```
+and use in `path/to/mjml.mjm`
+```html
+<mj-text>{{key}} / {{foo}}</mj-text> 
+==> <mj-text>value / baz</mj-text>
+```
+
+### you can embed <mj-hydrate> in <mj-hydrate>
+```html
+<mj-hydrate path="path/to/mjml.mjml"></mj-hydrate>
+```
+and use in `path/to/mjml.mjm`
+```html
+<mj-text>This is a title</mj-text>
+<mj-hydrate path="{{layout.header}}"></mj-hydrate>
+==>
+<mj-text>This is a title</mj-text>
+<mj-section>... HEADER ...</mj-section>
+```
+
+## <a id="data">#</a> Define data
 Before executing the ``mjml2html(...)`` method, add some data to the context.
+
+This is only available if you run the nodejs version. Not available in mjml app.
 ```js
 MjHydrate.setData({
     user: {
@@ -37,3 +91,9 @@ MjHydrate.setData({
     }
     
 })
+```
+
+## Quelques liens
+- [Documentation MJML](https://documentation.mjml.io/)
+- [Documentation {{ mustache }}](https://www.npmjs.com/package/mustache/)
+- [Complete exemple](index.mjml)

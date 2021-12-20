@@ -1,4 +1,4 @@
-<mj-column>
+<mj-column width="100%">
     <mj-text font-size="24px">Exemple de mapping</mj-text>
     <mj-text>{{address.street_info}}</mj-text>
     <mj-text>{{address.zip_code}}</mj-text>
