@@ -61,7 +61,7 @@ and use in `path/to/mjml.mjm`
 ==> <mj-text>value / baz</mj-text>
 ```
 
-### you can embed <mj-hydrate> in <mj-hydrate>
+### you can embed &lt;mj-hydrate&gt; in &lt;mj-hydrate&gt;
 ```html
 <mj-hydrate path="path/to/mjml.mjml"></mj-hydrate>
 ```
@@ -74,6 +74,19 @@ and use in `path/to/mjml.mjm`
 <mj-section>... HEADER ...</mj-section>
 ```
 
+### you can use JSON.stringified string
+Use simple quote around attribute value
+
+The value of the attribute will be ``JSON.parse()``, the value needs to be valid JSON (with double-quoted property).
+If this method throws an error, the value of the attribute will be used as string.
+```html
+<mj-hydrate path="path/to/mjml.mjml" myJson='{"key": "a json value", "number":42}'></mj-hydrate>
+```
+and use in `path/to/mjml.mjm`
+```html
+<mj-text>{{key}} // {{number}}</mj-text> 
+==> <mj-text>a json value // 42</mj-text>
+```
 ## <a id="data">#</a> Define data
 Before executing the ``mjml2html(...)`` method, add some data to the context.
 
