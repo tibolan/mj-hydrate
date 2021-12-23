@@ -1,7 +1,7 @@
 {
   "name": "mj-hydrate",
   "version": "1.0.0",
-  "description": "mj-include with Mustache power",
+  "description": "mj-include with {{ super.power }}",
   "main": "index.js",
   "scripts": {
     "start": "gulp watch",
@@ -26,8 +26,7 @@
     "gulp-watch": "^5.0.1"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
-    "mjml": "^4.11.0",
-    "mustache": "~4.2.0"
+    "handlebars": "^4.7.7",
+    "mjml": "^4.11.0"
   }
 }

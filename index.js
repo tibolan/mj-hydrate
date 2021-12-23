@@ -1,2 +1,2 @@
-const hydrate = require('./lib/components/MjHydrate.js').default
-exports["default"] = hydrate;
+const MjHydrate = require('./lib/components/MjHydrate.js')
+exports["default"] = MjHydrate.default;

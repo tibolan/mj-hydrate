@@ -1,4 +1,3 @@
-<mj-column width="50%">
+<mj-column>
     <mj-text>Embed 1</mj-text>
 </mj-column>
-<mj-hydrate path="inc/{{layout.embed_dynamic}}"></mj-hydrate>

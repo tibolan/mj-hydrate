@@ -1,20 +1,26 @@
-<mj-hydrate path="inc/{{layout.header}}.mjml"></mj-hydrate>
+<mj-wrapper padding="0">
+    <mj-hydrate path="inc/{{layout.header}}.mjml"></mj-hydrate>
+    <mj-hydrate path="inc/banner.mjml">My wonderful email<br>title
+    </mj-hydrate>
+</mj-wrapper>
 <mj-wrapper padding="20px" border="1px solid #D0D6DE">
+    <mj-section full-width="full-width">
+        <mj-hydrate path="inc/title.mjml">This is a title</mj-hydrate>
+        <mj-hydrate path="inc/info.mjml">This is an block<br>lorem ipsum blah blah blah
+        </mj-hydrate>
+        <mj-hydrate path="inc/bold-text.mjml">This is a bold text</mj-hydrate>
+        <mj-hydrate path="inc/red-text.mjml">This <b>is a red</b> text
+        </mj-hydrate>
+    </mj-section>
     <mj-hydrate path="inc/mapping.mjml" mapping="key:value;foo:baz"></mj-hydrate>
     <mj-hydrate path="inc/source.mjml" source="user"></mj-hydrate>
     <mj-hydrate path="inc/global.mjml"></mj-hydrate>
     <mj-section full-width="full-width">
-        <mj-hydrate path="inc/bold-text.mjml">This is a bold text</mj-hydrate>
-        <mj-hydrate path="inc/red-text.mjml">This <b>is a red</b> text</mj-hydrate>
-    </mj-section>
-    <mj-hydrate path="inc/embed1.mjml"></mj-hydrate>
-    <mj-section full-width="full-width">
+        <mj-include path="inc/embed1.mjml"></mj-include>
         <mj-column>
-            <mj-text>Dur 1</mj-text>
+            <mj-text>Test Include</mj-text>
         </mj-column>
-        <mj-column>
-            <mj-text>Dur 2</mj-text>
-        </mj-column>
+        <mj-include path="inc/embed2.mjml"></mj-include>
     </mj-section>
 </mj-wrapper>
-<mj-hydrate path="inc/{{layout.footer}}.mjml"></mj-hydrate>*
+<mj-hydrate path="inc/{{layout.footer}}.mjml"></mj-hydrate>

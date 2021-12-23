@@ -1,6 +1,7 @@
 import fs from 'fs'
 import {BodyComponent} from 'mjml-core'
-import Mustache from 'mustache'
+
+const Handlebars = require("handlebars");
 /*
   Our component is a (useless) simple text tag, that adds colored stars around the text.
   It can take 3 attributes, to specify size and colors.
@@ -19,8 +20,9 @@ export default class MjHydrate extends BodyComponent {
         'mj-section': ['mj-hydrate'],
         'mj-column': ['mj-hydrate'],
         'mj-text': ['mj-hydrate'],
+        'mj-wrapper': ['mj-hydrate'],
         // Tell the validator which tags are allowed as our component's children
-        'mj-hydrate': []
+        'mj-hydrate': ['mj-hydrate']
     }
 
     // Tells the validator which attributes are allowed for mj-layout
@@ -30,24 +32,18 @@ export default class MjHydrate extends BodyComponent {
         'source': 'string'
     }
 
-    static defaultAttributes = {}
-
-    /*
-      Render is the only required function in a component.
-      It must return an html string.
-    */
     getAvailableData (file) {
         const mapping = this.getAttribute("mapping")
         const source = this.getAttribute("source")
-
-        let data = Object.assign({}, MjHydrate.prototype.externalData)
+        let data = {}
 
         if (mapping) {
-            const sp = mapping.split(';')
-            for (let keyVar of sp) {
-                const [key, value] = keyVar.split(':')
+            mapping
+                .split(';')
+                .forEach((variable) => {
+                const [key, value] = variable.split(':')
                 data[key] = value
-            }
+            })
         }
         if (source) {
             try {
@@ -61,6 +57,7 @@ export default class MjHydrate extends BodyComponent {
 
     render () {
         try {
+            const path = this.getAttribute('path')
             const data = Object.assign(
                 {},
                 MjHydrate.prototype.externalData || {},
@@ -70,14 +67,13 @@ export default class MjHydrate extends BodyComponent {
                     mjHydrateContent: this.props.content
                 }
             )
-            let file = fs.readFileSync(this.getAttribute('path'), {encoding: 'utf8', flag: 'r'});
-            file = Mustache.render(file, data);
+            let file = fs.readFileSync(path, {encoding: 'utf8', flag: 'r'});
+            const template = Handlebars.compile(file);
+            file = template(data)
             return this.renderMJML(`${file}`)
         } catch (e) {
-            console.log(e)
             return `<!-- ${e.message} -->`
         }
-
     }
 }
 

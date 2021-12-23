@@ -3,16 +3,6 @@
     <mj-attributes>
       <mj-text font-weight="400" font-size="15px"/>
     </mj-attributes>
-    <mj-style>
-      pre {
-        display: block;
-        font-size: 14px;
-        font-family: monospace;
-        white-space: pre-wrap;
-        background-color: rgba(0,0,0,.15);
-        padding: 15px;
-      }
-    </mj-style>
   </mj-head>
   <mj-body width="640px">
     <mj-hydrate path="inc/layout.mjml"></mj-hydrate>

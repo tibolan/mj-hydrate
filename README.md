@@ -1,14 +1,27 @@
 # &lt;mj-hydrate&gt;
 A powerful mjml component that embed the 
-``{{ mustache }}``
+``{{ handlebars }}``
 syntax in your mjml files.
 
-- Create UI components for emailing
+- Create and reuse UI components for emailing
 - Create advanced layout logic
 - Easily reusable for emails on steroids.
 
-
 ## Usage
+&lt;mj-hydrate> needs:
+- a .mjml file to include refered with the ``path`` attribute
+- data to process the handlebars tag (remember to use {{{ syntax }}} to avoid HTML escaping).
+
+You can pass data in many ways:
+### Inside the tag: 
+```html
+<!-- index.mjml -->
+<mj-hydrate path="path/to/mjml.mjml">Lorem ipsum...</mj-hydrate>
+
+<!-- path/to/mjml.mjml -->
+<mj-text>{{{mjHydrateContent}}}</mj-text> 
+```
+
 
 ### Inject innerHTML in .mjml file
 ```html
@@ -16,7 +29,7 @@ syntax in your mjml files.
 ```
 and use in `path/to/mjml.mjm`
 ```html
-<mj-text>{{mjHydrateContent}}</mj-text> 
+
 ==> <mj-text>Lorem ipsum...</mj-text>
 ```
 
@@ -87,7 +100,7 @@ and use in `path/to/mjml.mjm`
 <mj-text>{{key}} // {{number}}</mj-text> 
 ==> <mj-text>a json value // 42</mj-text>
 ```
-## <a id="data">#</a> Define data
+## <a id="data">#</a> Define data <small>only in nodejs</small>
 Before executing the ``mjml2html(...)`` method, add some data to the context.
 
 This is only available if you run the nodejs version. Not available in mjml app.
@@ -104,9 +117,22 @@ MjHydrate.setData({
     }
     
 })
+
+mjml2html(...)
 ```
 
-## Quelques liens
+## Limitations
+
+&lt;mj-hydrate&gt; have some limitations as it works like an &lt;mj-include&gt; but it's not treated as one by the MJML XML Parser.
+
+Then each &lt;mj-hydrate&gt; tag is treated by the parser in the XML flow, not before the other tags.
+
+The MJML XML Parser seems to process the &lt;mj-include&gt; tags before the other tag.
+
+## Known bugs
+- bad computation of &lt;mj-column&gt; width. To resolve the issue, specify the "width" attribute.
+
+## Usefull links
 - [Documentation MJML](https://documentation.mjml.io/)
-- [Documentation {{ mustache }}](https://www.npmjs.com/package/mustache/)
+- [Documentation {{ handlerbars }}](https://handlebarsjs.com/guide/expressions.html#basic-usage)
 - [Complete exemple](index.mjml)

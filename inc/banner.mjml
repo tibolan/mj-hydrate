@@ -1,0 +1,8 @@
+<mj-section background-color="black" css-class="banner" padding="20px" full-width="full-width">
+    <mj-column width="45%" vertical-align="middle" padding="0" >
+        <mj-image align="left" src="logo-white-small.png" width="150" padding="0"></mj-image>
+    </mj-column>
+    <mj-column width="55%" vertical-align="middle" padding="0">
+        <mj-text css-class="banner-text" font-size="24px" color="#ffffff" font-weight="700" line-height="30px" padding-left="0">{{{ mjHydrateContent }}}</mj-text>
+    </mj-column>
+</mj-section>
